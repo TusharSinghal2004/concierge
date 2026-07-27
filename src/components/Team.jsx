@@ -2,11 +2,12 @@
 import Reveal from "./common/Reveal";
 import salilPhoto from "../assets/images/salil.jpeg";
 import rawatPhoto from "../assets/images/rawat.jpeg";
+import tusharPhoto from "../assets/images/tushar.jpg"
 
 const team = [
   {
     name: "Tushar Singhal",
-    photo: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=400&q=80",
+    photo: tusharPhoto,
   },
   {
     name: "Salil Hiremath",
