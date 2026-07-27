@@ -1,8 +1,10 @@
-// src/components/Hero.jsx
+// src/components/home/Hero_section.jsx
 import { useEffect, useRef, useState } from "react";
+import heroVideo from "../../assets/images/salil-viral-video.mp4";
 
-export default function Hero() {
-  const heroRef = useRef(null);
+export default function HeroSection() {
+  const sectionRef = useRef(null);
+  const videoRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -11,41 +13,40 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // parallax + fade math, clamped to viewport height
+  const openFullscreen = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+      return;
+    }
+
+    if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+      return;
+    }
+
+    if (video.msRequestFullscreen) {
+      video.msRequestFullscreen();
+    }
+  };
+
   const vh = typeof window !== "undefined" ? window.innerHeight : 800;
   const progress = Math.min(scrollY / vh, 1);
-  const bgScale = 1 + progress * 0.15;
+  const bgScale = 1 + progress * 0.1;
   const contentOpacity = 1 - progress * 1.4;
   const contentShift = progress * 60;
 
   return (
     <section
-      ref={heroRef}
-      className="relative h-screen w-full overflow-hidden bg-navy-deep"
+      ref={sectionRef}
+      className="relative h-[100dvh] w-full overflow-hidden bg-navy-deep"
     >
-      {/* full-bleed background media */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{ transform: `scale(${bgScale})`, transition: "transform 0.05s linear" }}
-      >
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/assets/hero-poster.jpg"
-        >
-          <source src="/assets/hero-bg.mp4" type="video/mp4" />
-        </video>
-        {/* cinematic gradient wash */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy-deep/40 to-navy-deep" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/60 via-transparent to-navy-deep/30" />
-      </div>
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-navy-deep via-navy to-navy-deep" />
 
-      {/* faint flight-route overlay, cinematic not decorative */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-20"
         viewBox="0 0 1200 600"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -65,47 +66,87 @@ export default function Hero() {
         </circle>
       </svg>
 
-      {/* content, fades/lifts out on scroll like Toyota's hero */}
       <div
-        className="relative z-10 h-full w-full flex flex-col items-center justify-center text-center px-6"
+        className="relative z-10 flex h-full w-full flex-col px-6 pb-16 pt-16 md:px-12 md:pt-20 lg:px-20"
         style={{
           opacity: Math.max(contentOpacity, 0),
           transform: `translateY(-${contentShift}px)`,
         }}
       >
-        <span className="font-body text-[0.7rem] md:text-xs tracking-[0.25em] uppercase text-ice/50 mb-6 animate-fadeUp">
-          American Express Codestreet Hackathon
-        </span>
+        <div className="mb-10 flex w-full justify-center md:mb-14 animate-fadeUp">
+          <span className="font-body text-[0.7rem] uppercase tracking-[0.25em] text-ice/50 md:text-xs">
+            American Express Codestreet Hackathon
+          </span>
+        </div>
 
-        <h1 className="font-display font-semibold text-ice leading-[0.95] tracking-tight mb-8 animate-fadeUpDelay1
-          text-[15vw] md:text-[7vw] lg:text-[6.5rem]">
-          We fix trips
-          <br />
-          <span className="text-amex-blue">before you notice.</span>
-        </h1>
+        <div className="mx-auto flex w-full max-w-7xl flex-1 grid-cols-1 items-center gap-10 lg:grid lg:grid-cols-2 lg:gap-16">
+          <div className="flex flex-col items-start text-left">
+            <h1 className="animate-fadeUpDelay1 mb-7 font-display text-[12vw] font-semibold leading-[0.98] tracking-tight text-ice sm:text-5xl md:text-6xl lg:text-7xl">
+              We fix trips
+              <br />
+              <span className="text-amex-blue">before you notice.</span>
+            </h1>
 
-        <a
-          href="#demo"
-          className="group inline-flex items-center gap-2 font-body text-sm text-ice border border-ice/25 rounded-full
-            px-6 py-3 hover:border-ice/60 hover:bg-ice/5 transition-all duration-300 animate-fadeUpDelay2"
-        >
-          Watch it work
-          <svg
-            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-            className="group-hover:translate-x-1 transition-transform duration-300"
-          >
-            <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
+            <p className="animate-fadeUpDelay2 mb-12 max-w-md font-body text-sm leading-relaxed text-slate md:text-base">
+              An autonomous concierge that detects disruptions and rebooks
+              flights, hotels, and plans before you even know something went
+              wrong.
+            </p>
+
+            <button
+              type="button"
+              onClick={openFullscreen}
+              className="animate-fadeUpDelay3 group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-body text-sm text-navy transition-all duration-300 hover:bg-ice/90"
+            >
+              Watch it work
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex w-full items-center justify-center lg:justify-end">
+            <div
+              className="animate-fadeUpDelay2 relative w-full max-w-xs overflow-hidden rounded-2xl border border-ice/10 bg-black shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)] sm:max-w-sm aspect-[9/16] max-h-[65vh]"
+              style={{
+                transform: `scale(${bgScale})`,
+                transition: "transform 0.05s linear",
+              }}
+            >
+              <video
+                ref={videoRef}
+                id="demo-video"
+                className="h-full w-full object-contain"
+                controls
+                playsInline
+              >
+                <source src={heroVideo} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* scroll cue */}
       <div
-        className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        className="absolute bottom-9 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
         style={{ opacity: Math.max(1 - progress * 3, 0) }}
       >
-        <span className="font-body text-[0.65rem] tracking-[0.2em] uppercase text-ice/40">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-ice/60 to-transparent animate-pulse" />
+        <span className="font-body text-[0.65rem] uppercase tracking-[0.2em] text-ice/40">
+          Scroll
+        </span>
+        <div className="h-8 w-px animate-pulse bg-gradient-to-b from-ice/60 to-transparent" />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 // src/constants/Navbar.jsx
 import { useState } from "react";
+import { openDemoFullscreen } from "../utils/openDemoFullscreen";
 
 const links = [
   { label: "Problem", href: "#problem" },
@@ -31,7 +32,7 @@ export default function Navbar({ variant = "light" }) {
           <span className={`font-display font-semibold text-[1.05rem] tracking-tight ${
             dark ? "text-ice" : "text-navy"
           }`}>
-            Concierge<span className="text-amex-blue">AI</span>
+            <span className="text-amex-blue">Voyager</span>
           </span>
         </a>
 
@@ -52,8 +53,9 @@ export default function Navbar({ variant = "light" }) {
           ))}
         </ul>
 
-        <a
-          href="#demo"
+        <button
+          type="button"
+          onClick={openDemoFullscreen}
           className={`hidden md:inline-flex items-center gap-1.5 font-body font-medium text-[0.85rem] px-5 py-2.5 rounded-lg
             transition-all duration-300 hover:-translate-y-0.5 ${
               dark
@@ -62,7 +64,7 @@ export default function Navbar({ variant = "light" }) {
             }`}
         >
           Watch Demo
-        </a>
+        </button>
 
         <button
           onClick={() => setOpen(!open)}
@@ -97,15 +99,18 @@ export default function Navbar({ variant = "light" }) {
               </li>
             ))}
           </ul>
-          <a
-            href="#demo"
-            onClick={() => setOpen(false)}
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              openDemoFullscreen();
+            }}
             className={`mt-5 block text-center font-body font-medium text-sm px-5 py-3 rounded-lg ${
               dark ? "bg-ice text-navy" : "bg-navy text-white"
             }`}
           >
             Watch Demo
-          </a>
+          </button>
         </div>
       )}
     </header>
