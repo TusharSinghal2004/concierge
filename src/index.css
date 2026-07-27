@@ -154,11 +154,10 @@ html {
 }
 
 .snap-container {
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100dvh;
 }
 
 .snap-section {
-  scroll-snap-align: start;
+  min-height: 100dvh;
 }

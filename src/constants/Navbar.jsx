@@ -1,6 +1,7 @@
 // src/constants/Navbar.jsx
 import { useState } from "react";
 import { openDemoFullscreen } from "../utils/openDemoFullscreen";
+import logo from "../assets/images/logo.png";
 
 const links = [
   { label: "Problem", href: "#problem" },
@@ -16,23 +17,17 @@ export default function Navbar({ variant = "light" }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[100] animate-slideDown py-3.5 ${
-        dark
+      className={`fixed top-0 left-0 w-full z-[100] animate-slideDown py-3.5 ${dark
           ? "bg-navy border-b border-ice/10"
           : "bg-white/90 backdrop-blur-xl border-b border-navy/10 shadow-[0_1px_0_rgba(10,31,68,0.04)]"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5">
-          <span className={`flex items-center justify-center w-8 h-8 rounded-lg ${
-            dark ? "bg-ice/10 border border-ice/20" : "bg-navy"
-          }`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-          </span>
-          <span className={`font-display font-semibold text-[1.05rem] tracking-tight ${
-            dark ? "text-ice" : "text-navy"
-          }`}>
-            <span className="text-amex-blue">Voyager</span>
+          <img src={logo} alt="Voyagr" className="h-8 w-8 rounded-lg object-contain" />
+          <span className={`font-display font-semibold text-[1.05rem] tracking-tight ${dark ? "text-ice" : "text-navy"
+            }`}>
+            <span className="text-amex-blue">Voyagr</span>
           </span>
         </a>
 
@@ -43,8 +38,7 @@ export default function Navbar({ variant = "light" }) {
                 href={link.href}
                 className={`relative font-body text-[0.85rem] transition-colors duration-300 py-1
                   after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0
-                  after:bg-amex-blue after:transition-all after:duration-300 hover:after:w-full ${
-                    dark ? "text-ice/70 hover:text-ice" : "text-navy/60 hover:text-navy"
+                  after:bg-amex-blue after:transition-all after:duration-300 hover:after:w-full ${dark ? "text-ice/70 hover:text-ice" : "text-navy/60 hover:text-navy"
                   }`}
               >
                 {link.label}
@@ -57,10 +51,9 @@ export default function Navbar({ variant = "light" }) {
           type="button"
           onClick={openDemoFullscreen}
           className={`hidden md:inline-flex items-center gap-1.5 font-body font-medium text-[0.85rem] px-5 py-2.5 rounded-lg
-            transition-all duration-300 hover:-translate-y-0.5 ${
-              dark
-                ? "bg-ice text-navy hover:bg-white shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-                : "bg-navy text-white hover:bg-amex-blue shadow-[0_1px_2px_rgba(10,31,68,0.15)] hover:shadow-[0_6px_16px_rgba(0,111,207,0.25)]"
+            transition-all duration-300 hover:-translate-y-0.5 ${dark
+              ? "bg-ice text-navy hover:bg-white shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
+              : "bg-navy text-white hover:bg-amex-blue shadow-[0_1px_2px_rgba(10,31,68,0.15)] hover:shadow-[0_6px_16px_rgba(0,111,207,0.25)]"
             }`}
         >
           Watch Demo
@@ -81,18 +74,16 @@ export default function Navbar({ variant = "light" }) {
       </div>
 
       {open && (
-        <div className={`md:hidden absolute top-full left-0 w-full backdrop-blur-xl border-t px-6 py-6 animate-fadeUp ${
-          dark ? "bg-navy/95 border-ice/10" : "bg-white/95 border-navy/10"
-        }`}>
+        <div className={`md:hidden absolute top-full left-0 w-full backdrop-blur-xl border-t px-6 py-6 animate-fadeUp ${dark ? "bg-navy/95 border-ice/10" : "bg-white/95 border-navy/10"
+          }`}>
           <ul className="flex flex-col gap-1">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`block font-body py-2.5 border-b transition-colors duration-300 ${
-                    dark ? "text-ice/70 hover:text-ice border-ice/5" : "text-navy/70 hover:text-navy border-navy/5"
-                  }`}
+                  className={`block font-body py-2.5 border-b transition-colors duration-300 ${dark ? "text-ice/70 hover:text-ice border-ice/5" : "text-navy/70 hover:text-navy border-navy/5"
+                    }`}
                 >
                   {link.label}
                 </a>
@@ -105,9 +96,8 @@ export default function Navbar({ variant = "light" }) {
               setOpen(false);
               openDemoFullscreen();
             }}
-            className={`mt-5 block text-center font-body font-medium text-sm px-5 py-3 rounded-lg ${
-              dark ? "bg-ice text-navy" : "bg-navy text-white"
-            }`}
+            className={`mt-5 block text-center font-body font-medium text-sm px-5 py-3 rounded-lg ${dark ? "bg-ice text-navy" : "bg-navy text-white"
+              }`}
           >
             Watch Demo
           </button>

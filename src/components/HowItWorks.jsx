@@ -38,7 +38,7 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative bg-white h-full flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-20 sm:pt-8 sm:pb-8 md:pt-10 md:pb-10"
+      className="scroll-mt-20 relative bg-white h-full flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-20 sm:pt-8 sm:pb-8 md:pt-10 md:pb-10"
     >
       <div className="max-w-6xl mx-auto w-full">
         <Reveal className="max-w-2xl mb-2.5 sm:mb-3 md:mb-4">

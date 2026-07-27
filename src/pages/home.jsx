@@ -12,13 +12,14 @@ import Navbar from "../constants/Navbar";
 import Footer from "../constants/Footer";
 import StackSection from "../components/common/StackSection";
 
-const SECTIONS = [Hero, ProblemStatement, SolutionOverview, KeyFeatures,HowItWorks,TechStack,ArchitectureFlow,ArchitectureDetails,Team];
+const SECTIONS = [ProblemStatement, SolutionOverview, KeyFeatures,HowItWorks,TechStack,ArchitectureFlow,ArchitectureDetails,Team];
 
 export default function Home() {
   return (
     <>
       <Navbar variant="light" />
       <div className="snap-container">
+        <Hero />
         {SECTIONS.map((Section, i) => (
           <StackSection key={i} index={i}>
             <Section />

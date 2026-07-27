@@ -8,9 +8,11 @@ export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const container = sectionRef.current?.closest(".snap-container");
+    if (!container) return;
+    const onScroll = () => setScrollY(container.scrollTop);
+    container.addEventListener("scroll", onScroll, { passive: true });
+    return () => container.removeEventListener("scroll", onScroll);
   }, []);
 
   const openFullscreen = () => {
@@ -41,7 +43,7 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100dvh] w-full overflow-hidden bg-navy-deep"
+      className="relative min-h-screen w-full overflow-hidden bg-navy-deep"
     >
       <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-navy-deep via-navy to-navy-deep" />
 
@@ -67,27 +69,27 @@ export default function HeroSection() {
       </svg>
 
       <div
-        className="relative z-10 flex h-full w-full flex-col px-6 pb-16 pt-16 md:px-12 md:pt-20 lg:px-20"
+        className="relative z-10 flex h-full w-full flex-col px-6 pt-24 pb-16 md:px-12 md:pt-28 md:pb-24 lg:px-20"
         style={{
           opacity: Math.max(contentOpacity, 0),
           transform: `translateY(-${contentShift}px)`,
         }}
       >
-        <div className="mb-10 flex w-full justify-center md:mb-14 animate-fadeUp">
-          <span className="font-body text-[0.7rem] uppercase tracking-[0.25em] text-ice/50 md:text-xs">
+        <div className="mb-4 flex w-full justify-center md:mb-6 animate-fadeUp">
+          <span className="font-body text-[0.7rem] uppercase leading-none tracking-[0.25em] text-ice/50 md:text-xs">
             American Express Codestreet Hackathon
           </span>
         </div>
 
-        <div className="mx-auto flex w-full max-w-7xl flex-1 grid-cols-1 items-center gap-10 lg:grid lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 grid-cols-1 items-center gap-4 lg:grid lg:grid-cols-2 lg:gap-10">
           <div className="flex flex-col items-start text-left">
-            <h1 className="animate-fadeUpDelay1 mb-7 font-display text-[12vw] font-semibold leading-[0.98] tracking-tight text-ice sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="animate-fadeUpDelay1 mb-4 font-display text-[12vw] font-semibold leading-[0.98] tracking-tight text-ice sm:text-5xl md:text-6xl lg:text-7xl">
               We fix trips
               <br />
               <span className="text-amex-blue">before you notice.</span>
             </h1>
 
-            <p className="animate-fadeUpDelay2 mb-12 max-w-md font-body text-sm leading-relaxed text-slate md:text-base">
+            <p className="animate-fadeUpDelay2 mb-6 max-w-md font-body text-sm leading-relaxed text-slate md:text-base">
               An autonomous concierge that detects disruptions and rebooks
               flights, hotels, and plans before you even know something went
               wrong.
@@ -96,7 +98,7 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={openFullscreen}
-              className="animate-fadeUpDelay3 group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-body text-sm text-navy transition-all duration-300 hover:bg-ice/90"
+              className="animate-fadeUpDelay3 group mt-2 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-body text-sm text-navy transition-all duration-300 hover:bg-ice/90"
             >
               Watch it work
               <svg
@@ -119,7 +121,7 @@ export default function HeroSection() {
 
           <div className="flex w-full items-center justify-center lg:justify-end">
             <div
-              className="animate-fadeUpDelay2 relative w-full max-w-xs overflow-hidden rounded-2xl border border-ice/10 bg-black shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)] sm:max-w-sm aspect-[9/16] max-h-[65vh]"
+              className="animate-fadeUpDelay2 relative w-full max-w-xs overflow-hidden rounded-2xl border border-ice/10 bg-black shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)] sm:max-w-sm max-h-[90vh]"
               style={{
                 transform: `scale(${bgScale})`,
                 transition: "transform 0.05s linear",
@@ -139,15 +141,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div
-        className="absolute bottom-9 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
-        style={{ opacity: Math.max(1 - progress * 3, 0) }}
-      >
-        <span className="font-body text-[0.65rem] uppercase tracking-[0.2em] text-ice/40">
-          Scroll
-        </span>
-        <div className="h-8 w-px animate-pulse bg-gradient-to-b from-ice/60 to-transparent" />
-      </div>
     </section>
   );
 }

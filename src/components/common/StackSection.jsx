@@ -9,7 +9,7 @@ export default function StackSection({ children, index, theme = "light", onActiv
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) onActive(theme);
+        if (entry.isIntersecting && onActive) onActive(theme);
       },
       { threshold: 0.6 }
     );
